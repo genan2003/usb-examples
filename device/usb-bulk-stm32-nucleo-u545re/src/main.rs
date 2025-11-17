@@ -83,12 +83,12 @@ async fn main(_spawner: Spawner) {
     // can be used by libusb/rusb software without needing a custom driver or INF file.
     // In principle you might want to call msos_feature() just on a specific function,
     // if your device also has other functions that still use standard class drivers.
-    // builder.msos_descriptor(windows_version::WIN8_1, 0);
-    // builder.msos_feature(msos::CompatibleIdFeatureDescriptor::new("WINUSB", ""));
-    // builder.msos_feature(msos::RegistryPropertyFeatureDescriptor::new(
-    //     "DeviceInterfaceGUIDs",
-    //     msos::PropertyData::RegMultiSz(DEVICE_INTERFACE_GUIDS),
-    // ));
+    builder.msos_descriptor(windows_version::WIN8_1, 0);
+    builder.msos_feature(msos::CompatibleIdFeatureDescriptor::new("WINUSB", ""));
+    builder.msos_feature(msos::RegistryPropertyFeatureDescriptor::new(
+        "DeviceInterfaceGUIDs",
+        msos::PropertyData::RegMultiSz(DEVICE_INTERFACE_GUIDS),
+    ));
 
     // Add a vendor-specific function (class 0xFF), and corresponding interface,
     // that uses our custom handler.
