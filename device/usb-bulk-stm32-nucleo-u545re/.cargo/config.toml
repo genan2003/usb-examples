@@ -26,3 +26,6 @@ runner = "probe-rs run --chip STM32U545RETxQ"
 #   * `warn`
 #   * `error`
 DEFMT_LOG = "info"
+
+
+
