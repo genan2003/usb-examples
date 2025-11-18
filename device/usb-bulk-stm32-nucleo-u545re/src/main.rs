@@ -132,11 +132,3 @@ async fn main(_spawner: Spawner) {
     // If we had made everything `'static` above instead, we could do this using separate tasks instead.
     join(usb_driver, usb_read_write).await;
 }
-
-
-
-
-
-
-
-
