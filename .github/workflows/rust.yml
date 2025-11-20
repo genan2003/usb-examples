@@ -18,7 +18,7 @@ jobs:
         run: |
           cd device
           for package in $(ls -d usb*); do
-            cargo fmt --check
+            (cd #package && cargo fmt --check)
           done
           cd ..
           cd host/usb-bulk-rust
