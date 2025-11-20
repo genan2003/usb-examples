@@ -38,7 +38,7 @@ fn connection(di: DeviceInfo) -> Result<()> {
 
         // receive bytes to an str
         if let Some(result) = ep_in.wait_next_complete(Duration::from_millis(1000)) {
-            println!("{:?}", std::str::from_utf8(&*result.buffer)?);
+            println!("{:?}", std::str::from_utf8(&result.buffer)?);
             // resubmit the buffer to have it available for the next read
             ep_in.submit(result.buffer);
         } else {
