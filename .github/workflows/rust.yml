@@ -1,0 +1,43 @@
+name: Rust
+
+on:
+  push:
+  pull_request:
+  merge_group:
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Format
+        run: |
+          cd device
+          for package in $(ls -d usb*); do
+            cargo fmt --check
+          done
+          cd ..
+          cd host/usb-bulk-rust
+          cargo fmt --check
+      - name: Build
+        run: |
+          cd device
+          for package in $(ls -d usb*); do
+            (cd $package && cargo build)
+          done
+          cd ..
+          cd host/usb-bulk-rust
+          cargo build
+      - name: Clippy
+        run: |
+          cd device
+          for package in $(ls -d lab*); do
+            (cd $package && cargo clippy)
+          done
+          cd ..
+          cd host/usb-bulk-rust
+          cargo clippy
