@@ -14,30 +14,36 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - name: Format
+      - name: Format Devices
         run: |
           cd device
           for package in $(ls -d usb*); do
+            echo Format $package
             (cd $package && cargo fmt --check)
           done
-          cd ..
+      - name: Format Rust Host
+        run: |
           cd host/usb-bulk-rust
           cargo fmt --check
-      - name: Build
+      - name: Build Devices
         run: |
           cd device
           for package in $(ls -d usb*); do
+            echo Build $package
             (cd $package && cargo build)
           done
-          cd ..
+      - name: Build Rust Host
+        run: |
           cd host/usb-bulk-rust
           cargo build
-      - name: Clippy
+      - name: Clippy Devices
         run: |
           cd device
+          echo Clippy $package
           for package in $(ls -d lab*); do
             (cd $package && cargo clippy)
           done
-          cd ..
+      - name: Clippy Rust Host
+        run: |
           cd host/usb-bulk-rust
           cargo clippy
