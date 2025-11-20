@@ -3,15 +3,18 @@
 
 use defmt::info;
 use defmt_rtt as _;
+use embassy_executor::Spawner;
 use embassy_futures::join::join;
 use embassy_stm32::{
-    bind_interrupts, peripherals::USB_OTG_FS, time::Hertz, usb::{Driver, InterruptHandler}, Config
+    Config, bind_interrupts,
+    peripherals::USB_OTG_FS,
+    time::Hertz,
+    usb::{Driver, InterruptHandler},
 };
 use embassy_time::Timer;
-use panic_probe as _;
-use embassy_usb::{msos, msos::windows_version, Builder, Config as UsbConfig};
 use embassy_usb::driver::{Endpoint, EndpointIn, EndpointOut};
-use embassy_executor::Spawner;
+use embassy_usb::{Builder, Config as UsbConfig, msos, msos::windows_version};
+use panic_probe as _;
 
 // This is a randomly generated GUID to allow clients on Windows to find our device
 const DEVICE_INTERFACE_GUIDS: &[&str] = &["{AFB9A6FB-30BA-44BC-9232-806CFC875321}"];
@@ -118,7 +121,7 @@ async fn main(_spawner: Spawner) {
     let usb_driver = usb.run();
 
     // This is the actual task that reads and write
-    // back data. This can be split into 
+    // back data. This can be split into
     // several tasks.
     let usb_read_write = async {
         loop {
