@@ -40,10 +40,10 @@ jobs:
         run: |
           cd device
           echo Clippy $package
-          for package in $(ls -d lab*); do
-            (cd $package && cargo clippy -D)
+          for package in $(ls -d usb*); do
+            (cd $package && cargo clippy -- --Dwarnings)
           done
       - name: Clippy Rust Host
         run: |
           cd host/usb-bulk-rust
-          cargo clippy -D
+          cargo clippy -- -Dwarnings
