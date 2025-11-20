@@ -45,7 +45,6 @@ async fn main(_spawner: Spawner) {
     // make sure you provide the `config` parameter here instead of `Default::default()`
     let peripherals = embassy_stm32::init(config);
 
-    let mut ep_out_buffer = [0u8; 256];
     // let mut config = embassy_stm32::usb::Config::default();
 
     // config.vbus_detection = false;
